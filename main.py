@@ -11,15 +11,15 @@ from tool import SearchYTS, SearchAnime, Search1337x, SearchPirateBay
 
 TorrentBot = Client(session_name=Config.SESSION_NAME, api_id=Config.API_ID, api_hash=Config.API_HASH, bot_token=Config.BOT_TOKEN)
 DEFAULT_SEARCH_MARKUP = [
-                    [InlineKeyboardButton("Search YTS", switch_inline_query_current_chat="!yts "),
-                     InlineKeyboardButton("Go Inline", switch_inline_query="!yts ")],
-                    [InlineKeyboardButton("Search ThePirateBay", switch_inline_query_current_chat="!pb "),
-                     InlineKeyboardButton("Go Inline", switch_inline_query="!pb ")],
+                    [InlineKeyboardButton("Search YTS", switch_inline_query_current_chat="!y "),
+                     InlineKeyboardButton("Go Inline", switch_inline_query="!y ")],
+                    [InlineKeyboardButton("Search ThePirateBay", switch_inline_query_current_chat="!p "),
+                     InlineKeyboardButton("Go Inline", switch_inline_query="!p ")],
                     [InlineKeyboardButton("Search 1337x", switch_inline_query_current_chat=""),
                      InlineKeyboardButton("Go Inline", switch_inline_query="")],
                     [InlineKeyboardButton("Search Anime", switch_inline_query_current_chat="!a "),
                      InlineKeyboardButton("GO Inline", switch_inline_query_current_chat="!a ")],
-                    [InlineKeyboardButton("Developer: @AbirHasan2005", url="https://t.me/AbirHasan2005")]
+                    [InlineKeyboardButton("Bot owner", url="https://t.me/unkusr")]
                 ]
 
 
@@ -29,7 +29,7 @@ async def start_handler(_, message: Message):
         await message.reply_text(
             text="Hello, I am Torrent Search Bot!\n"
                  "I can search Torrent Magnetic Links from Inline.\n\n"
-                 "Made by @AbirHasan2005",
+                 "Thanks @AbirHasan2005 for making this awesome bot",
             disable_web_page_preview=True,
             parse_mode="Markdown",
             reply_markup=InlineKeyboardMarkup(DEFAULT_SEARCH_MARKUP)
@@ -56,7 +56,7 @@ async def inline_handlers(_, inline: InlineQuery):
                 reply_markup=InlineKeyboardMarkup(DEFAULT_SEARCH_MARKUP)
             )
         )
-    elif search_ts.startswith("!pb"):
+    elif search_ts.startswith("!p"):
         query = search_ts.split(" ", 1)[-1]
         if (query == "") or (query == " "):
             answers.append(
@@ -67,7 +67,7 @@ async def inline_handlers(_, inline: InlineQuery):
                         message_text="`!pb [text]`\n\nSearch ThePirateBay Torrents from Inline!",
                         parse_mode="Markdown"
                     ),
-                    reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Search Again", switch_inline_query_current_chat="!pb ")]])
+                    reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Search Again", switch_inline_query_current_chat="!p ")]])
                 )
             )
         else:
@@ -81,7 +81,7 @@ async def inline_handlers(_, inline: InlineQuery):
                             message_text=f"No Torrents Found For `{query}` in ThePirateBay !!",
                             parse_mode="Markdown"
                         ),
-                        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Try Again", switch_inline_query_current_chat="!pb ")]])
+                        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Try Again", switch_inline_query_current_chat="!p ")]])
                     )
                 )
             else:
@@ -102,10 +102,10 @@ async def inline_handlers(_, inline: InlineQuery):
                                 parse_mode="Markdown"
                             ),
                             reply_markup=InlineKeyboardMarkup(
-                                [[InlineKeyboardButton("Search Again", switch_inline_query_current_chat="!pb ")]])
+                                [[InlineKeyboardButton("Search Again", switch_inline_query_current_chat="!p ")]])
                         )
                     )
-    elif search_ts.startswith("!yts"):
+    elif search_ts.startswith("!y"):
         query = search_ts.split(" ", 1)[-1]
         if (query == "") or (query == " "):
             answers.append(
@@ -117,7 +117,7 @@ async def inline_handlers(_, inline: InlineQuery):
                         parse_mode="Markdown"
                     ),
                     reply_markup=InlineKeyboardMarkup(
-                        [[InlineKeyboardButton("Search Again", switch_inline_query_current_chat="!yts ")]])
+                        [[InlineKeyboardButton("Search Again", switch_inline_query_current_chat="!y ")]])
                 )
             )
         else:
@@ -132,7 +132,7 @@ async def inline_handlers(_, inline: InlineQuery):
                             parse_mode="Markdown"
                         ),
                         reply_markup=InlineKeyboardMarkup(
-                            [[InlineKeyboardButton("Try Again", switch_inline_query_current_chat="!yts ")]])
+                            [[InlineKeyboardButton("Try Again", switch_inline_query_current_chat="!y ")]])
                     )
                 )
             else:
@@ -150,11 +150,11 @@ async def inline_handlers(_, inline: InlineQuery):
                                              f"**Rating:** `{torrentList[i]['Rating']}`\n"
                                              f"**Duration:** `{torrentList[i]['Runtime']}`\n"
                                              f"**Released on {torrentList[i]['ReleaseDate']}**\n\n"
-                                             f"**Torrent Download Links:**\n{dl_links}\n\nPowered By @AHToolsBot",
+                                             f"**Torrent Download Links:**\n{dl_links}\n\n",
                                 parse_mode="Markdown",
                                 disable_web_page_preview=True
                             ),
-                            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Search Again", switch_inline_query_current_chat="!yts ")]]),
+                            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Search Again", switch_inline_query_current_chat="!y ")]]),
                             thumb_url=torrentList[i]["Poster"]
                         )
                     )
@@ -201,7 +201,7 @@ async def inline_handlers(_, inline: InlineQuery):
                                              f"**Leechers:** `{torrentList[i]['Leecher']}`\n"
                                              f"**Size:** `{torrentList[i]['Size']}`\n"
                                              f"**Upload Date:** `{torrentList[i]['Date']}`\n\n"
-                                             f"**Magnet:** \n`{torrentList[i]['Magnet']}`\n\nPowered By @AHToolsBot",
+                                             f"**Magnet:** \n`{torrentList[i]['Magnet']}`\n\n",
                                 parse_mode="Markdown"
                             ),
                             reply_markup=InlineKeyboardMarkup(
@@ -241,7 +241,7 @@ async def inline_handlers(_, inline: InlineQuery):
                                          f"__Uploaded by {torrentList[i]['UploadedBy']}__\n"
                                          f"__Uploaded {torrentList[i]['DateUploaded']}__\n"
                                          f"__Last Checked {torrentList[i]['LastChecked']}__\n\n"
-                                         f"**Magnet:**\n`{torrentList[i]['Magnet']}`\n\nPowered By @AHToolsBot",
+                                         f"**Magnet:**\n`{torrentList[i]['Magnet']}`\n\n",
                             parse_mode="Markdown"
                         ),
                         reply_markup=InlineKeyboardMarkup(
